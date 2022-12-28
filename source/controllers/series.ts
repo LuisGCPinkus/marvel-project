@@ -11,7 +11,7 @@ const getSeries = async (req: Request, res: Response, next: NextFunction) => {
         const date: string = new Date().toISOString();
         const hash: string = crypto.createHash("md5").update(date+config.privateKey+config.publicKey).digest("hex")
         let result: AxiosResponse = await axios.get(
-            `https://gateway.marvel.com:443/v1/public/series?ts=${date}&apikey=${config.publicKey}&hash=${hash}`,
+            `${config.url}/public/series?ts=${date}&apikey=${config.publicKey}&hash=${hash}`,
             { params:  {...data} }
         );
         return res.status(200).json({
@@ -34,7 +34,7 @@ const getSerie = async (req: Request, res: Response, next: NextFunction) => {
             const date: string = new Date().toISOString();
             const hash: string = crypto.createHash("md5").update(date+config.privateKey+config.publicKey).digest("hex")
             let result: AxiosResponse = await axios.get(
-                `https://gateway.marvel.com:443/v1/public/series/${id}?ts=${date}&apikey=${config.publicKey}&hash=${hash}`
+                `${config.url}/public/series/${id}?ts=${date}&apikey=${config.publicKey}&hash=${hash}`
             );
             return res.status(200).json({
                 message: result.data.data
